@@ -9,11 +9,13 @@ in order to build the initial background model. IMBS exploits OpenCV functions.
 ![Example 1](images/bgs-example-1.jpg)
 ![Example 2](images/bgs-example-2.jpg)
 
+[![Example 3](http://img.youtube.com/vi/p36RsMll1EM/0.jpg)](http://www.youtube.com/watch?v=p36RsMll1EM "IMBS-MT foreground extraction")
+
 ## Requirements
 
-IMBS requires the following packages to build:
+IMBS-MT requires the following packages to build:
 
-* OpenCV (< 3.0)
+* OpenCV (compatible with OpenCV 3.1)
 * C++11
 
 ## How to build
