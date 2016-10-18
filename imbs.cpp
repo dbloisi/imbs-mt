@@ -1,36 +1,35 @@
 /*
- *  IMBS Background Subtraction Library
- *  Copyright 2012 Domenico Daniele Bloisi
+ *  IMBS-MT Background Subtraction Library multi-thread
+ *  Copyright 2016 Domenico Daniele Bloisi
  *
  *  This file is part of IMBS and it is distributed under the terms of the
  *  GNU Lesser General Public License (Lesser GPL)
  *
  *  
  *
- *  IMBS is free software: you can redistribute it and/or modify
+ *  IMBS-MT is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  IMBS is distributed in the hope that it will be useful,
+ *  IMBS-MT is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with IMBS.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with IMBS-MT.  If not, see <http://www.gnu.org/licenses/>.
  *
  *  This file contains the C++ OpenCV based implementation for
- *  IMBS algorithm described in
+ *  IMBS-MT algorithm described in
  *  
- *  D. D. Bloisi and L. Iocchi
- *  "Independent Multimodal Background Subtraction"
- *  In Proc. of the Third Int. Conf. on Computational Modeling of Objects
- *  Presented in Images: Fundamentals, Methods and Applications, pp. 39-44, 2012.
- *  Please, cite the above paper if you use IMBS.
- *  
+ *  Domenico D. Bloisi, Andrea Pennisi, and Luca Iocchi
+ *  "Parallel Multi-modal Background Modeling"
+ *  Pattern Recognition Letters
  *
- *  IMBS has been written by Domenico Daniele Bloisi
+ *  Please, cite the above paper if you use IMBS-MT.
+ *
+ *  IMBS-MT has been written by Domenico D. Bloisi and Andrea Pennisi
  *
  *  Please, report suggestions/comments/bugs to
  *  domenico.bloisi@gmail.com

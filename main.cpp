@@ -1,36 +1,35 @@
 /*
- *  IMBS Background Subtraction Library
- *  Copyright 2012 Domenico Daniele Bloisi
+ *  IMBS-MT Background Subtraction Library multi-thread
+ *  Copyright 2016 Domenico Daniele Bloisi
  *
  *  This file is part of IMBS and it is distributed under the terms of the
  *  GNU Lesser General Public License (Lesser GPL)
  *
  *  
  *
- *  IMBS is free software: you can redistribute it and/or modify
+ *  IMBS-MT is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  IMBS is distributed in the hope that it will be useful,
+ *  IMBS-MT is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with IMBS.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with IMBS-MT.  If not, see <http://www.gnu.org/licenses/>.
  *
  *  This file contains the C++ OpenCV based implementation for
- *  IMBS algorithm described in
+ *  IMBS-MT algorithm described in
  *  
- *  D. D. Bloisi and L. Iocchi
- *  "Independent Multimodal Background Subtraction"
- *  In Proc. of the Third Int. Conf. on Computational Modeling of Objects
- *  Presented in Images: Fundamentals, Methods and Applications, pp. 39-44, 2012.
- *  Please, cite the above paper if you use IMBS.
- *  
+ *  Domenico D. Bloisi, Andrea Pennisi, and Luca Iocchi
+ *  "Parallel Multi-modal Background Modeling"
+ *  Pattern Recognition Letters
  *
- *  IMBS has been written by Domenico Daniele Bloisi
+ *  Please, cite the above paper if you use IMBS-MT.
+ *
+ *  IMBS-MT has been written by Domenico D. Bloisi and Andrea Pennisi
  *
  *  Please, report suggestions/comments/bugs to
  *  domenico.bloisi@gmail.com
@@ -48,7 +47,7 @@
 
 #include "imagemanager.h"
 
-//imbs
+//imbs-mt
 #include "imbs.hpp"
 #include "imbsmultithread.h"
 
@@ -70,8 +69,6 @@ int keyboard;  //input from keyboard
 int counter = 0;
 std::shared_ptr<BackgroundSubtractorIMBSMT> imbsMT;
 
-
-
 /**
  * Function Headers
 */
@@ -79,7 +76,9 @@ void help();
 void processVideo(char* videoFilename, double _fps=-1.);
 void processImages(char* firstFrameFilename);
 
-
+/**
+* Structs
+*/
 struct ThreadData
 {
 	Mat threadFrame;
@@ -191,8 +190,7 @@ void processVideo(char* videoFilename, double _fps) {
         //error in opening the video input
         cerr << "Unable to open video file: " << videoFilename << endl;
         exit(EXIT_FAILURE);
-    }
-	
+    }	
 	if(_fps < 0.)    
 		fps = capture.get(5); //CV_CAP_PROP_FPS
 	else
@@ -200,8 +198,7 @@ void processVideo(char* videoFilename, double _fps) {
 	
     if(fps != fps) { //check for nan value
 		fps = 25.;
-	}
-	
+	}	
 	//std::cout << "Number of cores:" << std::thread::hardware_concurrency() << std::endl;
 	
     imbsMT = std::shared_ptr<BackgroundSubtractorIMBSMT>(
@@ -221,8 +218,7 @@ void processVideo(char* videoFilename, double _fps) {
 			10000., //persistencePeriod [default 10000.]
 			false //morphologicalFiltering = [default false]
 		)
-	);
-	
+	);	
 
 	//read input data. ESC or 'q' for quitting
 	int sleepTime = 30;
@@ -238,7 +234,7 @@ void processVideo(char* videoFilename, double _fps) {
         imbsMT->apply(frame, fgMask);       
 
 		stringstream stream;
-		rectangle(frame, cv::Point(10, 2), cv::Point(160,20),cv::Scalar(255,255,255), -1);
+		rectangle(frame, cv::Point(10, 2), cv::Point(100,20),cv::Scalar(255,255,255), -1);
         stream << capture.get(1);
 		string frameNumberString = stream.str();
 		putText(frame, frameNumberString.c_str(), cv::Point(15, 15),FONT_HERSHEY_SIMPLEX, 0.5 , cv::Scalar(0,0,0));
@@ -250,19 +246,12 @@ void processVideo(char* videoFilename, double _fps) {
         		
 		keyboard = waitKey(sleepTime);
     }
-
     //delete capture object
     capture.release();
 }
 
 /**
 * @function processImages
-* WARNING: this function can read only image sequences in the form
-* <n>.<ext>
-* where <n> is a number without zeros as prefix, e.g., 7
-* and <ext> is the extension provided by command line, e.g., png, jpg, etc.
-* Example of sequence:
-*             1.png, 2.png, ..., 15.png, 16.png, ..., 128.png, 129.png, ...
 */
 void processImages(char* firstFrameFilename) {	
 
@@ -274,7 +263,6 @@ void processImages(char* firstFrameFilename) {
     foldername = foldername.substr(0,folder_index+1);
     
 	ImageManager *im = new ImageManager(foldername);
-
 
     //read the first file of the sequence
 	string s = im->next(1);
@@ -322,7 +310,7 @@ void processImages(char* firstFrameFilename) {
         ++frameRateCounter;
 
         stringstream stream;
-        rectangle(frame, cv::Point(10, 2), cv::Point(160,20),cv::Scalar(255,255,255), -1);
+        rectangle(frame, cv::Point(10, 2), cv::Point(100,20),cv::Scalar(255,255,255), -1);
         stream << frameRateCounter;
         string frameNumberString = stream.str();
         putText(frame, frameNumberString.c_str(), cv::Point(15, 15),FONT_HERSHEY_SIMPLEX, 0.5 , cv::Scalar(0,0,0));
@@ -338,9 +326,8 @@ void processImages(char* firstFrameFilename) {
         imshow("BgModel", imbsMT->getBgModel());
 
 		keyboard = waitKey(sleepTime);
-
         
-        //read the next frame
+        //read next frame
         s = im->next(1);
 		index = s.find_last_of("/");
 		if (index != string::npos) {

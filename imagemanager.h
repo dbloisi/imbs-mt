@@ -1,30 +1,38 @@
 /*
- *  EAT Event Annotation Tool
- *  Copyright 2015 Andrea Pennisi
+ *  IMBS-MT Background Subtraction Library multi-thread
+ *  Copyright 2016 Domenico Daniele Bloisi
  *
- *  This file is part of AT and it is distributed under the terms of the
+ *  This file is part of IMBS and it is distributed under the terms of the
  *  GNU Lesser General Public License (Lesser GPL)
  *
+ *  
  *
- *
- *  EAT is free software: you can redistribute it and/or modify
+ *  IMBS-MT is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  EAT is distributed in the hope that it will be useful,
+ *  IMBS-MT is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with EAT.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with IMBS-MT.  If not, see <http://www.gnu.org/licenses/>.
  *
+ *  This file contains the C++ OpenCV based implementation for
+ *  IMBS-MT algorithm described in
+ *  
+ *  Domenico D. Bloisi, Andrea Pennisi, and Luca Iocchi
+ *  "Parallel Multi-modal Background Modeling"
+ *  Pattern Recognition Letters
  *
- *  EAT has been written by Andrea Pennisi
+ *  Please, cite the above paper if you use IMBS-MT.
+ *
+ *  IMBS-MT has been written by Domenico D. Bloisi and Andrea Pennisi
  *
  *  Please, report suggestions/comments/bugs to
- *  andrea.pennisi@gmail.com
+ *  domenico.bloisi@gmail.com
  *
  */
 
@@ -44,8 +52,15 @@
 #include <vector>
 #include <string.h>
 #include <algorithm>
-#include <dirent.h>
 #include <stdio.h>
+
+#if defined(_MSC_VER)
+#include <tchar.h>
+#include <strsafe.h>
+#pragma comment(lib, "User32.lib")
+#elif defined(__GNUC__) || defined(__GNUG__)
+#include <dirent.h>
+#endif
 
 class ImageManager
 {
