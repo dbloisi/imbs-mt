@@ -1,4 +1,4 @@
-project(imbs)
+project(imbs-mt)
 
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
@@ -8,25 +8,16 @@ find_package(OpenCV REQUIRED)
 
 include_directories(${PROJECT_BINARY_DIR})
 
-# Build type configuration.
-if (CMAKE_BUILD_TYPE)
-	string(TOUPPER ${CMAKE_BUILD_TYPE} _build_type)
-	set(CMAKE_BUILD_TYPE ${_build_type} CACHE STRING "" FORCE)
-endif (CMAKE_BUILD_TYPE)
+include(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
+CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
+if(COMPILER_SUPPORTS_CXX11)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+elseif(COMPILER_SUPPORTS_CXX0X)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+else()
+        message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+endif()
 
-# Build type must be either DEBUG or RELEASE.
-if (CMAKE_BUILD_TYPE STREQUAL "")
-	message("No build type specified: forcing to RELEASE.")
-	set(CMAKE_BUILD_TYPE "RELEASE" CACHE STRING "" FORCE)
-endif (CMAKE_BUILD_TYPE STREQUAL "")
-
-if (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
-	add_definitions(-ggdb)
-elseif (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
-	add_definitions(-O3)
-else (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
-	message("Invalid build type specified: doing nothing.")
-endif (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
-
-add_executable (imbs-mt imbs.cpp imbsmultithread.cpp imagemanager.cpp hungarianalg.cpp main.cpp)
-target_link_libraries (imbs-mt ${OpenCV_LIBS})
+add_executable (${PROJECT_NAME} imbs.cpp imbsmultithread.cpp imagemanager.cpp main.cpp)
+target_link_libraries (${PROJECT_NAME} ${OpenCV_LIBS})
