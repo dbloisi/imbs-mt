@@ -10,10 +10,9 @@ in order to build the initial background model. IMBS exploits OpenCV functions.
 ![Example 2](images/bgs-example-2.jpg)
 
 The video below shows foreground extraction using IMBS-MT Parallel Multi-modal Background Subtraction
-on the [Town Centre Dataset] (http://www.robots.ox.ac.uk/ActiveVision/Research/Projects/2009bbenfold_headpose/project.html)
+on the [Town Centre Dataset] (http://www.robots.ox.ac.uk/ActiveVision/Research/Projects/2009bbenfold_headpose/project.html).
 Darker gray pixels are considered as shadow points.
 
-Raw data: 
 [![Example 3](http://img.youtube.com/vi/p36RsMll1EM/0.jpg)](http://www.youtube.com/watch?v=p36RsMll1EM "IMBS-MT foreground extraction")
 
 ## Requirements
