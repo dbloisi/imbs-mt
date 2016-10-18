@@ -66,4 +66,4 @@ _>imbs -img data\0.jpg -fps 7_
 
 ## IMBS-MT webpage
 
-For more information on IMBS-MT, you can visit the following webpage: [here](http://www.dis.uniroma1.it/~bloisi/sw/imbs-mt.html).
+You can find more information on IMBS-MT [here](http://www.dis.uniroma1.it/~bloisi/sw/imbs-mt.html).
