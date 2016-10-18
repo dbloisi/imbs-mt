@@ -2,8 +2,6 @@ project(imbs-mt)
 
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-set(CMAKE_CXX_FLAGS "-std=c++11")
-
 find_package(OpenCV REQUIRED)
 
 include_directories(${PROJECT_BINARY_DIR})
@@ -19,5 +17,12 @@ else()
         message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+
 add_executable (${PROJECT_NAME} imbs.cpp imbsmultithread.cpp imagemanager.cpp main.cpp)
+if (WIN32)
 target_link_libraries (${PROJECT_NAME} ${OpenCV_LIBS})
+else ()
+target_link_libraries (${PROJECT_NAME} ${OpenCV_LIBS} -lm -lpthread)
+endif()
+
