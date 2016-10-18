@@ -27,15 +27,15 @@ IMBS-MT requires the following packages to build:
 IMBS-MT works under Linux, Mac Os and Windows environments. Please use the following command sequence to build 
 the library:
 
-### Linux
+### Linux & Mac Os
 
 * mkdir build
 * cd build
 * cmake ../
-* make -j\<number-of-cores+1\>
+* make -j
 
 ### Windows
-* Use the CMake graphical user interface to create the desired makefile
+* Use the CMake graphical user interface to create the desired makefile [CMake Homepage](https://cmake.org/)
 
 ## How to use
 
@@ -45,30 +45,30 @@ IMBS-MT is provided with an usage example (main.cpp)
 
 For video files:
 
-_$./imbs -vid data/video.avi_
+_$./imbs-mt -vid data/video.avi_
 
 For an image sequence (fps = 25 default value)
 
-_$./imbs -img data/0.jpg_
+_$./imbs-mt -img data/0.jpg_
 
 or you can specify the fps value
 
-_$./imbs -img data/0.jpg -fps 7_
+_$./imbs-mt -img data/0.jpg -fps 7_
 
 
 ### Windows
 
 For video files
 
-_>imbs -vid data\video.avi_
+_>imbs-mt -vid data\video.avi_
 
 For an image sequence (fps = 25 default value)
 
-_>imbs -img data\0.jpg_
+_>imbs-mt -img data\0.jpg_
 
 or you can specify the fps value
 
-_>imbs -img data\0.jpg -fps 7_
+_>imbs-mt -img data\0.jpg -fps 7_
 
 ## IMBS-MT webpage
 
