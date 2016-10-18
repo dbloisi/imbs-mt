@@ -1,4 +1,4 @@
-# Independent Multimodal Background Subtraction
+# Independent Multimodal Background Subtraction multi-thread
 Independent Multimodal Background Subtraction multi-thread (IMBS-MT) Library is a C++ library designed for
  performing an accurate foreground extraction in real-time. IMBS creates a multimodal model
 of the background in order to deal with illumination changes, camera jitter, movements of 
