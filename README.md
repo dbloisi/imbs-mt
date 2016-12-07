@@ -32,7 +32,7 @@ the library:
 * mkdir build
 * cd build
 * cmake ../
-* make -j
+* make
 
 ### Windows
 * Use the CMake graphical user interface to create the desired makefile [CMake Homepage](https://cmake.org/)
@@ -72,4 +72,6 @@ _>imbs-mt -img data\0.jpg -fps 7_
 
 ## IMBS-MT webpage
 
-You can find more information on IMBS-MT [here](http://www.dis.uniroma1.it/~bloisi/sw/imbs-mt.html).
+You can find more information on IMBS-MT [here](http://www.dis.uniroma1.it/~bloisi/sw/imbs-mt.html)
+or in the paper
+* D.D. Bloisi, A. Pennisi, L. Iocchi. "Parallel multi-modal background modeling" Pattern Recognition Letters, 2016.
